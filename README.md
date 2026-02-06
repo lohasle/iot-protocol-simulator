@@ -1,231 +1,215 @@
-# IoT 协议模拟器 - UI 设计方案
+# IoT Protocol Simulator
 
-## 📋 概述
+🌐 **World-class IoT Protocol Debugging Platform**
 
-本项目是一个现代化的 IoT 协议模拟器用户界面设计，采用暗黑主题、响应式布局和现代化 SaaS 风格。设计灵感来源于 ThingsBoard、FUXA 和 Notion 等优秀工业物联网平台。
+A comprehensive IoT protocol simulation platform supporting multiple industrial and IoT protocols with network simulation, fault injection, and real-time monitoring.
 
-## 🎨 设计规范
+## ✨ Features
 
-### 颜色系统
+### 🔧 Protocol Simulation
+- **Modbus TCP/RTU** - Complete protocol stack with device simulation
+- **MQTT Broker + Client** - Full-featured message broker
+- **OPC UA Server/Client** - Industrial interoperability standard
+- **BACnet IP/MS-TP** - Building automation protocol
+- **CoAP Server** - Constrained Application Protocol
+- **TCP Connection** - Raw TCP simulation with connection pooling
 
-| 用途 | 颜色 | 说明 |
-|------|------|------|
-| 背景主色 | `#0f172a` | 深蓝黑色，主要背景 |
-| 背景次色 | `#1e293b` | 稍浅的蓝色，卡片和面板背景 |
-| 背景第三层 | `#334155` | 面板元素背景 |
-| 品牌主色 | `#6366f1` | Indigo，主要交互色 |
-| 成功色 | `#22c55e` | 绿色，在线/正常状态 |
-| 警告色 | `#f59e0b` | 橙黄色，警告状态 |
-| 错误色 | `#ef4444` | 红色，错误/离线状态 |
-| 信息色 | `#3b82f6` | 蓝色，信息提示 |
+### 🌉 Unified Bridge Engine
+- Protocol-to-protocol bridging (Modbus → MQTT, OPC UA → BACnet, etc.)
+- JSON/YAML mapping configurations
+- Real-time data transformation
+- Event-driven rules engine
 
-### 字体
+### 📊 Network Simulation
+- **1000+ Device Simulation** - High-scale load testing
+- **Latency/Packet Loss** - Network condition simulation
+- **Topology Visualization** - D3.js interactive network graph
+- **Connection Pooling** - Efficient resource management
 
-- **主字体**: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto
-- **等宽字体**: Monaco, Menlo (用于数据包视图和代码)
-- **基础字号**: 14px
-- **标题字号**: 15-16px
+### 🛠️ Testing Tools
+- **Packet Capturer** - Wireshark-style packet analysis
+- **Fault Injector** - Network failure simulation
+- **Traffic Replayer** - Record and playback traffic
+- **Load Tester** - Performance and stress testing
 
-### 间距与布局
+### 📈 Real-time Monitoring
+- **WebSocket Live Feed** - Sub-second latency updates
+- **Protocol Status Dashboard** - Connection/message statistics
+- **Alert System** - Threshold-based notifications
+- **Metrics Visualization** - Throughput, latency, error rates
 
-- **工具栏高度**: 56px
-- **侧边栏宽度**: 280px
-- **面板宽度**: 320px
-- **卡片圆角**: 12px
-- **元素圆角**: 4-8px
+## 🚀 Quick Start
 
-## 🏗️ 项目结构
+### Prerequisites
+- Docker & Docker Compose
+- Node.js 18+
+- Python 3.11+
+
+### Local Development
+
+```bash
+# Clone the repository
+git clone https://github.com/your-org/iot-protocol-simulator.git
+cd iot-protocol-simulator
+
+# Start with Docker Compose
+docker-compose up -d
+
+# Or run separately
+# Backend
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn src.main:app --reload
+
+# Frontend
+cd frontend
+npm install
+npm run dev
+```
+
+### Access
+- **Web UI**: http://localhost:3000
+- **API Docs**: http://localhost:8000/docs
+- **MQTT Broker**: mqtt://localhost:1883
+- **Metrics**: http://localhost:9090
+
+## 📁 Project Structure
 
 ```
 iot-protocol-simulator/
+├── backend/
+│   ├── src/
+│   │   ├── protocols/          # Protocol implementations
+│   │   │   ├── modbus.py       # Modbus TCP/RTU
+│   │   │   ├── mqtt.py         # MQTT Broker/Client
+│   │   │   ├── opcua.py        # OPC UA Server
+│   │   │   ├── bacnet.py       # BACnet IP
+│   │   │   ├── coap.py         # CoAP Server
+│   │   │   └── tcp.py          # TCP simulation
+│   │   ├── bridge/             # Bridge engine
+│   │   │   ├── engine.py       # Main bridge
+│   │   │   ├── mapper.py       # Data mapping
+│   │   │   ├── event_bus.py    # Redis/ZeroMQ bus
+│   │   │   └── rules.py        # Rule engine
+│   │   ├── simulation/         # Network simulation
+│   │   │   ├── network.py      # Topology/load
+│   │   │   └── latency.py      # Network conditions
+│   │   ├── tools/              # Testing tools
+│   │   │   ├── capturer.py     # Packet capture
+│   │   │   ├── fault_injector.py
+│   │   │   ├── replayer.py     # Traffic replay
+│   │   │   └── load_tester.py  # Load testing
+│   │   ├── routers/            # API endpoints
+│   │   ├── models/              # Pydantic schemas
+│   │   └── services/            # Business logic
+│   └── pyproject.toml
 ├── frontend/
 │   ├── src/
-│   │   ├── index.html      # 主 HTML 文件
-│   │   ├── styles.css      # 样式表
-│   │   └── app.js          # 交互逻辑
-│   └── public/
-├── backend/
-│   ├── main.py             # FastAPI 主应用
-│   ├── routers/            # API 路由
-│   ├── models/             # 数据模型
-│   └── services/           # 业务逻辑
-├── docs/                   # 文档
-└── assets/                 # 静态资源
+│   │   ├── components/
+│   │   │   ├── protocols/       # Protocol panels
+│   │   │   ├── topology/        # D3.js graphs
+│   │   │   ├── debug/           # Packet capture
+│   │   │   └── ...
+│   │   ├── hooks/               # React hooks
+│   │   │   └── useProtocol.ts
+│   │   ├── services/
+│   │   │   └── websocket.ts
+│   │   └── pages/               # App pages
+│   └── package.json
+├── docker-compose.yml
+└── README.md
 ```
 
-## 📱 核心页面
+## 📖 API Examples
 
-### 1. 仪表盘页面 (Dashboard)
+### Start a Protocol Server
 
-**功能特性**:
-- 实时数据流可视化图表
-- 多协议性能对比柱状图
-- 设备状态网格视图
-- 警报通知面板
-
-**布局**:
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    实时数据流可视化                          │
-├──────────────────────┬──────────────────────────────────────┤
-│    协议性能对比      │         设备状态网格                  │
-├──────────────────────┴──────────────────────────────────────┤
-│                    警报通知面板                              │
-└─────────────────────────────────────────────────────────────┘
+```python
+# Start Modbus server
+POST /api/v1/protocols/modbus/start
+{
+  "host": "0.0.0.0",
+  "port": 502,
+  "simulate_registers": true,
+  "register_count": 100
+}
 ```
 
-### 2. 设备建模页面 (Device Modeling)
+### Create a Bridge
 
-**功能特性**:
-- 左侧设备组件面板
-- 中间画布（支持拖拽）
-- 右侧配置面板
-
-**交互流程**:
-1. 从左侧选择设备类型
-2. 拖拽到中间画布
-3. 在右侧配置设备属性
-4. 保存设备实例
-
-### 3. 网络拓扑页面 (Topology)
-
-**功能特性**:
-- 可视化拓扑图 (D3.js)
-- 拖拽连接设备
-- 连接配置表
-- 延迟/丢包/负载模拟
-
-**拓扑节点类型**:
-- 🏭 PLC (可编程逻辑控制器)
-- 🌡️ 传感器
-- 🌉 网关
-- ☁️ 云平台
-- ⚙️ 执行器
-
-### 4. 调试监控页面 (Debug)
-
-**功能特性**:
-- Wireshark 式数据包列表
-- 协议过滤器
-- 故障注入面板
-- 回放控制器
-
-**数据包视图**:
-```
-时间          源                目标              协议   长度  信息
-─────────────────────────────────────────────────────────────────────
-14:23:45.123  192.168.1.10     192.168.1.100     Modbus  62   Read Registers
+```python
+# Create Modbus to MQTT bridge
+POST /api/v1/bridge/rules
+{
+  "name": "modbus-to-mqtt",
+  "mappings": [
+    {
+      "source_protocol": "modbus",
+      "source_topic": "holding-registers",
+      "target_protocol": "mqtt",
+      "target_topic": "sensors/data",
+      "transform": {
+        "field_mappings": [
+          {"source": "value", "target": "sensor_value", "type": "float"}
+        ]
+      }
+    }
+  ]
+}
 ```
 
-### 5. 协议配置页面 (Protocol Configuration)
+### Inject Fault
 
-**支持的协议**:
-| 协议 | 类型 | 端口 | 用途 |
-|------|------|------|------|
-| Modbus TCP | 工业 | 502 | 设备通信 |
-| Modbus RTU | 工业 | - | 串行通信 |
-| OPC UA | 工业 | 4840 | 安全通信 |
-| BACnet | 工业 | 47808 | 楼宇自动化 |
-| MQTT | IoT | 1883/8883 | 消息队列 |
-| CoAP | IoT | 5683 | 轻量通信 |
-| HTTP/REST | IoT | 80/443 | Web API |
+```python
+# Inject 25% packet loss
+POST /api/v1/faults
+{
+  "type": "packet_loss",
+  "target": "network",
+  "parameters": {"percent": 25},
+  "probability": 0.3
+}
+```
 
-## 🔧 交互设计
+## 🎨 UI Pages
 
-### 拖拽与放置
+| Page | Route | Description |
+|------|-------|-------------|
+| Dashboard | `/` | Real-time metrics & monitoring |
+| Topology | `/topology` | Network visualization |
+| Protocols | `/protocols` | Protocol configuration |
+| Devices | `/devices` | Device management |
+| Debug | `/debug` | Packet capture & analysis |
+| Settings | `/settings` | System configuration |
 
-- 设备组件可从面板拖拽到画布
-- 支持在画布上重新定位
-- 自动吸附对齐网格
+## 🐳 Docker Services
 
-### 实时更新
+```yaml
+frontend:    # React UI (port 3000)
+backend:     # FastAPI (port 8000)
+redis:       # Event bus (port 6379)
+mosquitto:   # MQTT Broker (port 1883)
+postgres:    # Configuration DB (port 5432)
+prometheus:  # Metrics (port 9090)
+grafana:     # Dashboards (port 3100)
+```
 
-- 消息率每秒更新
-- 设备状态实时刷新
-- 警报自动推送
+## ✅ Acceptance Criteria
 
-### 键盘快捷键
+- [x] Modbus/MQTT/OPC UA protocol simulation
+- [x] Unified bridging (Modbus → MQTT, etc.)
+- [x] 1000+ device simulation
+- [x] Real-time monitoring dashboard
+- [x] Fault injection capabilities
+- [x] Docker one-click deployment
 
-| 快捷键 | 功能 |
-|--------|------|
-| `Ctrl + N` | 新建设备 |
-| `Ctrl + S` | 保存配置 |
-| `Ctrl + R` | 开始/停止模拟 |
-| `F5` | 刷新数据 |
+## 📝 License
 
-## 📱 响应式设计
-
-### 断点
-
-| 断点 | 宽度 | 布局变化 |
-|------|------|----------|
-| sm | < 768px | 侧边栏隐藏，可展开 |
-| md | 768-1200px | 双列布局 |
-| lg | > 1200px | 全功能布局 |
-
-### 移动端适配
-
-- 侧边栏变为可滑出面板
-- 顶部工具栏简化
-- 卡片堆叠显示
-
-## 🎯 设计亮点
-
-1. **暗黑模式**: 减少眼部疲劳，适合长时间使用
-2. **实时仪表盘**: 一目了然掌握系统状态
-3. **可视化拓扑**: 直观展示网络结构
-4. **故障注入**: 方便测试系统容错能力
-5. **多协议支持**: 兼容主流工业和物联网协议
-
-## 🚀 下一步开发
-
-### 短期目标
-
-1. [ ] 完善 HTML 原型的剩余页面
-2. [ ] 实现 D3.js 拓扑图交互
-3. [ ] 添加 WebSocket 实时通信
-4. [ ] 实现数据包解析器
-
-### 中期目标
-
-1. [ ] React + TypeScript 重构前端
-2. [ ] FastAPI 后端集成
-3. [ ] 用户认证系统
-4. [ ] 项目保存/加载功能
-
-### 长期目标
-
-1. [ ] 多用户协作
-2. [ ] 云端部署支持
-3. [ ] AI 辅助故障诊断
-4. [ ] 插件扩展系统
-
-## 📦 技术栈推荐
-
-### 前端
-- React 18 + TypeScript
-- Redux Toolkit (状态管理)
-- D3.js (拓扑可视化)
-- Tailwind CSS (样式)
-- Socket.IO (实时通信)
-
-### 后端
-- Python FastAPI
-- SQLAlchemy (ORM)
-- Celery (异步任务)
-- Redis (缓存)
-- PostgreSQL (数据库)
-
-### 部署
-- Docker + Docker Compose
-- Nginx (反向代理)
-- Let's Encrypt (SSL)
-
-## 📄 许可证
-
-MIT License
+MIT License - See LICENSE file
 
 ---
 
-**设计完成时间**: 2026-02-06
-**版本**: 1.0.0
+**Version**: 1.0.0  
+**Last Updated**: 2026-02-06
