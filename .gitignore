@@ -7,22 +7,78 @@ __pycache__/
 venv/
 env/
 .venv/
+ENV/
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
 
 # Node
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Build outputs
+frontend/dist/
+frontend/build/
+backend/dist/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*.sublime-*
 
 # OS
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 
 # Logs
 *.log
+logs/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.nyc_output/
+coverage/
+*.cover
+
+# Environment
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Docker
+docker-compose.override.yml
+
+# Database
+*.db
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Mosquitto
+mosquitto/config/
+mosquitto/log/
+mosquitto/data/
+
+# Prometheus
+prometheus/data/
+
+# Grafana
+grafana/provisioning/

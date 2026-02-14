@@ -1,5 +1,32 @@
 # iot-protocol-simulator 迭代记录
 
+## 迭代 2026-02-15 00:01
+
+- **操作**: OpenClaw Bot 持续迭代
+- **任务**: TASK-2
+
+### 本次改进
+
+1. **增强 .gitignore** - 添加 Docker、测试覆盖率、构建输出、临时文件等忽略规则
+2. **新增 requirements.txt** - 为 Python 后端添加标准依赖文件，方便 pip 安装
+3. **完善 CONTRIBUTING.md** - 添加详细的开发指南、代码规范、提交规范
+4. **升级 CI 配置** - 分离前后端 CI 任务，添加 Docker Compose 验证，使用最新 Actions 版本
+
+### 竞品分析
+
+- **ICS-Common-Protocol-Simulator** (56 stars) - 工控协议模拟工具
+- **SensorTrafficGenerator** (17 stars) - IoT 流量生成器
+- **iot-simulator** (RedHat, 9 stars) - RedHat IoT 模拟器
+
+### 技术栈
+
+- **后端**: Python 3.11+ / FastAPI / Pydantic / Redis / ZeroMQ
+- **前端**: React 18 / TypeScript / Vite / Ant Design / D3.js / Three.js
+- **协议**: Modbus / MQTT / OPC UA / BACnet / CoAP / TCP
+- **部署**: Docker Compose / Prometheus / Grafana
+
+---
+
 ## 迭代 2026-02-06 15:29
 
 - **操作**: OpenClaw Bot 持续迭代
